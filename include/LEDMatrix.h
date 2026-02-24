@@ -3,13 +3,20 @@
 #include "mbed.h"
 #include <cstdint>
 
+enum DirectionType
+{
+    cDirType_Up = 0,
+    cDirType_Down,
+    cDirType_Left,
+    cDirType_Right,
+};
+
 // Globals
 DigitalOut Din(PC_0);
 DigitalOut Cs(PB_0);
 DigitalOut Clk(PC_1);
 
 // Koordinaten system als array erstellen
-
 uint8_t coordinateSystem[8] =
 {
     0b00000000,
@@ -66,5 +73,17 @@ void activateLED(uint8_t x, uint8_t y)
 void deactivateLED(uint8_t x, uint8_t y)
 {
     coordinateSystem[7-y] &= ~(1 << (x));
+    refresh();
+}
+
+void clearMatrix()
+{
+    for(int i = 0; i < 8; i++) coordinateSystem[i] = 0;
+    refresh();
+}
+
+void lightUp()
+{
+    for(int i = 0; i < 8; i++) coordinateSystem[i] = 0xFF;
     refresh();
 }
