@@ -246,7 +246,7 @@ int main() {
                 lastDirection = cDirType_Up;
             }
 
-            if(stickY.read() > 0.65 && lastDirection != cDirType_Right) 
+            else if(stickY.read() > 0.65 && lastDirection != cDirType_Right) 
             {
                 lastDirection = cDirType_Left;
             }   
